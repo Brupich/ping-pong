@@ -1,7 +1,11 @@
 from pygame import *
-#if sprite.collide_rect(racket1, ball) or sprite.collide_rect(racket2, ball):
-#           speed_x *= -1
-#           speed_y *= 1
+
+
+font.init()
+font1 = font.Font(None, 35)
+lose1 = font1.render('PLAYER 2 WIN', True, (180, 0, 0))
+lose2 = font1.render('PLAYER 1 WIN', True, (180, 0, 0))
+
 
 win_width = 700
 win_height = 500
@@ -53,7 +57,7 @@ class Player(GameSprite):
 speed_x = 3
 speed_y = 3
 racket1 = Player('ракетка для тениса.jpg', 100, 250, 50, 150, 5)
-racket2 = Player('ракетка для тениса.jpg', 600, 250, 50, 150, 5)
+racket2 = Player('ракетка для тениса.jpg', 550, 250, 50, 150, 5)
 ball = GameSprite('мячик.jpg', 352, 236, 50, 50, 1)
 
 FPS = 60
@@ -68,6 +72,8 @@ while game:
         if e.type == QUIT:
             game = False
     
+    
+
     if finish != True:
         
         ball.rect.x += speed_x
@@ -88,5 +94,15 @@ while game:
         racket2.reset()
 #        ball.update()
         ball.reset()
+
+
+        if ball.rect.x < 0:
+            finish = True
+            window.blit(lose1, (200, 200))
+
+        if ball.rect.x > 650:
+            finish = True
+            window.blit(lose2, (200, 200))
+
 
         display.update()
